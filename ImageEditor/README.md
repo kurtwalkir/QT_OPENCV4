@@ -8,4 +8,4 @@ RotatePlugin
 SharpenPlugin
 
 
-![Image alt](https://github.com/kurtwalkir/QT_OPENCV4/raw/master/ImageEditor/sreen.png)
+![Image alt](https://github.com/kurtwalkir/QT_OPENCV4/raw/master/ImageEditor/screen.png)
