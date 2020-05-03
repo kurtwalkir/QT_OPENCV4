@@ -17,6 +17,9 @@ MainWindow::MainWindow(QWidget *parent)
 void MainWindow::initUI()
 {
    this->resize(800, 600);
+
+   fileMenu = menuBar()->addMenu("&Plugins");
+
    viewToolBar = addToolBar("File");
    viewToolBar = addToolBar("View");
 
@@ -41,6 +44,7 @@ void MainWindow::createActions(void)
     zoomOutAction = new QAction("Zoom Out", this);
     prevAction = new QAction("&Previous Image", this);
     nextAction = new QAction("&Next Image", this);
+    blurAction = new QAction("Blur", this);
 
     viewToolBar->addAction(openAction);
     viewToolBar->addAction(saveAsAction);
@@ -48,6 +52,7 @@ void MainWindow::createActions(void)
     viewToolBar->addAction(zoomOutAction);
     viewToolBar->addAction(prevAction);
     viewToolBar->addAction(nextAction);
+    viewToolBar->addAction(blurAction);
     viewToolBar->addAction(exitAction);
 
     connect(openAction, SIGNAL(triggered(bool)), this, SLOT(openImage()));
@@ -57,11 +62,8 @@ void MainWindow::createActions(void)
     connect(zoomOutAction, SIGNAL(triggered(bool)), this, SLOT(zoomOut()));
     connect(prevAction, SIGNAL(triggered(bool)), this, SLOT(prevImage()));
     connect(nextAction, SIGNAL(triggered(bool)), this, SLOT(nextImage()));
-    setupShortcuts();
-
-    blurAction = new QAction("Blur", this);
-    viewToolBar->addAction(blurAction);
     connect(blurAction, SIGNAL(triggered(bool)), this, SLOT(blurImage()));
+    setupShortcuts();
 }
 
 void MainWindow::openImage(void)
@@ -221,7 +223,7 @@ void MainWindow::loadPlugins()
         PluginInterface *plugin_ptr = dynamic_cast<PluginInterface*>(pluginLoader.instance());
         if(plugin_ptr) {
             QAction *action = new QAction(plugin_ptr->name());
-            viewToolBar->addAction(action);
+            fileMenu->addAction(action);
             plugins[plugin_ptr->name()] = plugin_ptr;
             connect(action, SIGNAL(triggered(bool)), this, SLOT(pluginPerform()));
             // pluginLoader.unload();

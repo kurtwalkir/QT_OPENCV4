@@ -21,6 +21,9 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 private:
+
+    QMenu *fileMenu;
+
     QToolBar *viewToolBar;
     QGraphicsScene *imageScene;
     QGraphicsView *imageView;
